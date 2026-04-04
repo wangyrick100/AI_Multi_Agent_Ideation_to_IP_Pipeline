@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IdeaForge AI — Innovation Pipeline</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────────────────────────────── -->
+<header class="app-header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">⚡</span>
+      <span class="logo-text">IdeaForge <span class="logo-accent">AI</span></span>
+    </div>
+    <div class="header-tagline">From Idea to IP-Ready Innovation</div>
+    <div id="demo-badge" class="demo-badge hidden">DEMO MODE</div>
+  </div>
+</header>
+
+<!-- ── MAIN LAYOUT ───────────────────────────────────────────────────────── -->
+<main class="app-main">
+
+  <!-- LEFT: Input Panel -->
+  <aside class="input-panel">
+    <div class="panel-header">
+      <h2 class="panel-title">Innovation Brief</h2>
+      <p class="panel-subtitle">Describe your opportunity and let the pipeline do the rest.</p>
+    </div>
+
+    <form id="innovation-form" class="innovation-form" autocomplete="off">
+
+      <div class="field-group">
+        <label for="domain">Technology Domain</label>
+        <input
+          type="text"
+          id="domain"
+          name="domain"
+          placeholder="e.g. Healthcare AI, Clean Energy, FinTech"
+          required
+        />
+      </div>
+
+      <div class="field-group">
+        <label for="problem-space">Problem Space</label>
+        <textarea
+          id="problem-space"
+          name="problem_space"
+          rows="4"
+          placeholder="Describe the problem or opportunity you want to address…"
+          required
+        ></textarea>
+      </div>
+
+      <div class="field-group">
+        <label for="user-intent">Innovation Intent</label>
+        <textarea
+          id="user-intent"
+          name="user_intent"
+          rows="3"
+          placeholder="What outcome do you want? e.g. 'Generate novel IP around X'"
+          required
+        ></textarea>
+      </div>
+
+      <div class="field-group">
+        <label for="depth">Analysis Depth</label>
+        <div class="select-wrapper">
+          <select id="depth" name="depth">
+            <option value="quick">Quick — fast ideation sweep</option>
+            <option value="standard" selected>Standard — balanced depth &amp; speed</option>
+            <option value="deep">Deep — comprehensive analysis</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" id="submit-btn" class="submit-btn">
+        <span id="btn-text">Run Innovation Pipeline</span>
+        <span id="btn-spinner" class="btn-spinner hidden"></span>
+      </button>
+
+    </form>
+
+    <!-- Status log -->
+    <div id="status-log" class="status-log hidden">
+      <div class="log-header">Live Log</div>
+      <div id="log-entries" class="log-entries"></div>
+    </div>
+  </aside>
+
+  <!-- RIGHT: Pipeline + Results -->
+  <section class="results-panel">
+
+    <!-- Pipeline Visualisation -->
+    <div class="pipeline-container">
+      <h3 class="pipeline-title">Agent Pipeline</h3>
+      <div class="pipeline-flow">
+
+        <div class="agent-node" id="node-supervisor" data-agent="supervisor">
+          <div class="node-ring"></div>
+          <div class="node-icon">🎯</div>
+          <div class="node-name">Supervisor</div>
+          <div class="node-role">Orchestrator</div>
+          <div class="node-status-badge" id="badge-supervisor">Waiting</div>
+        </div>
+
+        <div class="pipeline-connector">
+          <div class="connector-line"></div>
+          <div class="connector-arrow">›</div>
+        </div>
+
+        <div class="agent-node" id="node-ideation" data-agent="ideation">
+          <div class="node-ring"></div>
+          <div class="node-icon">💡</div>
+          <div class="node-name">Ideation</div>
+          <div class="node-role">Concept Generator</div>
+          <div class="node-status-badge" id="badge-ideation">Waiting</div>
+        </div>
+
+        <div class="pipeline-connector">
+          <div class="connector-line"></div>
+          <div class="connector-arrow">›</div>
+        </div>
+
+        <div class="agent-node" id="node-prior-art" data-agent="prior_art">
+          <div class="node-ring"></div>
+          <div class="node-icon">🔍</div>
+          <div class="node-name">Prior Art</div>
+          <div class="node-role">Novelty Validator</div>
+          <div class="node-status-badge" id="badge-prior_art">Waiting</div>
+        </div>
+
+        <div class="pipeline-connector">
+          <div class="connector-line"></div>
+          <div class="connector-arrow">›</div>
+        </div>
+
+        <div class="agent-node" id="node-synthesis" data-agent="synthesis">
+          <div class="node-ring"></div>
+          <div class="node-icon">📋</div>
+          <div class="node-name">Synthesis</div>
+          <div class="node-role">IP Report Generator</div>
+          <div class="node-status-badge" id="badge-synthesis">Waiting</div>
+        </div>
+
+      </div><!-- .pipeline-flow -->
+
+      <!-- Overall progress bar -->
+      <div class="progress-track">
+        <div id="progress-bar" class="progress-bar" style="width:0%"></div>
+      </div>
+      <div id="progress-label" class="progress-label">Ready — fill in the brief and click Run</div>
+    </div><!-- .pipeline-container -->
+
+    <!-- Results Tabs -->
+    <div id="results-area" class="results-area hidden">
+
+      <div class="tabs-bar">
+        <button class="tab-btn active" data-tab="overview">Overview</button>
+        <button class="tab-btn"        data-tab="concepts">Concepts <span id="tab-badge-concepts" class="tab-badge hidden"></span></button>
+        <button class="tab-btn"        data-tab="prior-art">Prior Art <span id="tab-badge-prior-art" class="tab-badge hidden"></span></button>
+        <button class="tab-btn"        data-tab="ip-report">IP Report</button>
+      </div>
+
+      <!-- OVERVIEW tab -->
+      <div class="tab-content active" id="tab-overview">
+        <div id="overview-placeholder" class="placeholder-msg">Results will appear here once the pipeline completes.</div>
+        <div id="overview-content" class="hidden">
+          <div class="metrics-row">
+            <div class="metric-card">
+              <div class="metric-value" id="metric-ip-score">—</div>
+              <div class="metric-label">IP Readiness Score</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="metric-novelty">—</div>
+              <div class="metric-label">Novelty Rating</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="metric-concepts">—</div>
+              <div class="metric-label">Concepts Generated</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-value" id="metric-papers">—</div>
+              <div class="metric-label">Papers Analysed</div>
+            </div>
+          </div>
+          <div class="card">
+            <h4 class="card-title">Executive Summary</h4>
+            <div id="executive-summary" class="card-body text-body"></div>
+          </div>
+          <div class="card">
+            <h4 class="card-title">Next Steps</h4>
+            <ol id="next-steps-list" class="card-body ordered-list"></ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONCEPTS tab -->
+      <div class="tab-content" id="tab-concepts">
+        <div id="concepts-placeholder" class="placeholder-msg">Concepts will appear here after ideation completes.</div>
+        <div id="concepts-content" class="hidden concept-grid"></div>
+      </div>
+
+      <!-- PRIOR ART tab -->
+      <div class="tab-content" id="tab-prior-art">
+        <div id="prior-art-placeholder" class="placeholder-msg">Prior art results will appear here after search completes.</div>
+        <div id="prior-art-content" class="hidden"></div>
+      </div>
+
+      <!-- IP REPORT tab -->
+      <div class="tab-content" id="tab-ip-report">
+        <div id="ip-report-placeholder" class="placeholder-msg">Full IP report will appear here once synthesis completes.</div>
+        <div id="ip-report-content" class="hidden">
+          <div class="card">
+            <h4 class="card-title">Novelty Assessment</h4>
+            <div id="novelty-details" class="card-body"></div>
+          </div>
+          <div class="two-col">
+            <div class="card">
+              <h4 class="card-title">Key Differentiators</h4>
+              <ul id="differentiator-list" class="card-body bullet-list positive"></ul>
+            </div>
+            <div class="card">
+              <h4 class="card-title">Risk Areas</h4>
+              <ul id="risk-list" class="card-body bullet-list warning"></ul>
+            </div>
+          </div>
+          <div class="card">
+            <h4 class="card-title">Recommendation</h4>
+            <p id="recommendation-text" class="card-body text-body highlight-box"></p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- .results-area -->
+
+  </section>
+</main>
+
+<!-- ── TOAST CONTAINER ──────────────────────────────────────────────────────── -->
+<div id="toast-container" class="toast-container"></div>
+
+<script src="/app.js"></script>
+</body>
+</html>
