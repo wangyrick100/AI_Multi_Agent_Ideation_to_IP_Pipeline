@@ -8,12 +8,29 @@ from __future__ import annotations
 import copy
 import json
 import logging
+import re
 from typing import Any, Dict, List
 
 from config import OPENAI_API_KEY, OPENAI_MODEL, USE_MOCK
 from knowledge.knowledge_graph import get_knowledge_graph
 
 logger = logging.getLogger(__name__)
+
+_STOPWORDS = {
+    "a",
+    "an",
+    "and",
+    "at",
+    "by",
+    "for",
+    "from",
+    "in",
+    "of",
+    "on",
+    "the",
+    "to",
+    "with",
+}
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Prompt
@@ -161,6 +178,25 @@ _MOCK_CONCEPTS: List[Dict[str, Any]] = [
 
 
 # ──────────────────────────────────────────────────────────────────────────────
+# Keyword extraction
+# ──────────────────────────────────────────────────────────────────────────────
+def _extract_kg_keywords(domain: str, problem_space: str) -> List[str]:
+    tokens = re.findall(r"[A-Za-z0-9][A-Za-z0-9\-\+]*", f"{domain} {problem_space}".lower())
+    keywords = [domain]
+    seen = {domain.lower()}
+
+    for token in tokens:
+        if len(token) < 3 or token in _STOPWORDS or token in seen:
+            continue
+        seen.add(token)
+        keywords.append(token)
+        if len(keywords) >= 18:
+            break
+
+    return keywords
+
+
+# ──────────────────────────────────────────────────────────────────────────────
 # Agent node function (called by LangGraph)
 # ──────────────────────────────────────────────────────────────────────────────
 async def run_ideation(state: Dict[str, Any]) -> Dict[str, Any]:
@@ -179,7 +215,7 @@ async def run_ideation(state: Dict[str, Any]) -> Dict[str, Any]:
     })
 
     # Build graph context
-    keywords = domain.split() + problem_space.split()[:6]
+    keywords = _extract_kg_keywords(domain, problem_space)
     kg = get_knowledge_graph()
     kg_context = kg.build_context_summary(keywords)
 

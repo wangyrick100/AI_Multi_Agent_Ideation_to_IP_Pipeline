@@ -17,6 +17,124 @@ Except for third-party libraries, frameworks, APIs, and dependencies that remain
 - Patent status: **Already filed / patent-pending subject matter is reflected in this solution**
 - Intended use of this README: technical system description, engineering reference, invention-support record, and patent-discussion support document
 
+## Patent-Core File Status
+
+This `README.md` is intended to function as the **master technical disclosure file** for this solution and as the central working document from which patent counsel or a patent drafting team can prepare a provisional filing package, a nonprovisional specification package, continuation support materials, invention disclosure memoranda, and supporting figures.
+
+For that purpose, this README is structured to support:
+
+- invention title and technical field identification
+- background problem framing
+- written-description support
+- enablement-oriented technical disclosure
+- preferred-embodiment documentation
+- alternative embodiments and design-around coverage
+- figure-planning guidance
+- claim-drafting support
+- inventor/ownership attribution
+
+This README should therefore be treated as the **core disclosure record**, while recognizing that a formal U.S. patent application still requires separate filing components such as formal claims, drawings where necessary, cover-sheet / ADS materials, declarations where applicable, and practitioner review.
+
+## Document Control
+
+- Disclosure title: **Multi-Agent Innovation-to-IP Pipeline with Knowledge-Graph-Augmented Ideation, Prior-Art Screening, and IP-Readiness Synthesis**
+- Inventor / owner: **Yang (Rick) Wang, Ph.D.**
+- Document role: **Master patent-support disclosure file**
+- Repository role: **Primary engineering embodiment and reduction-to-practice support**
+- Current status: **Patent-pending / already-filed subject matter reflected**
+- Confidentiality posture: **Proprietary; distribute only in a manner consistent with patent strategy**
+
+## Invention Title
+
+**Systems and Methods for Multi-Agent Innovation Analysis, Knowledge-Graph-Augmented Ideation, Prior-Art-Aware Concept Generation, and IP-Readiness Synthesis**
+
+## Patent Abstract
+
+Disclosed are systems, methods, and computer-readable media for transforming an unstructured innovation brief into a structured invention-oriented output using a coordinated plurality of software agents. In one embodiment, a supervisor agent converts free-form user input into a strategic plan comprising focus areas, innovation angles, validation priorities, and search queries. An ideation agent then combines the strategic plan with knowledge-graph-derived context to produce differentiated technical concepts. A prior-art agent retrieves and scores literature evidence against the generated concepts, and a synthesis agent produces a novelty-oriented output package including concept summaries, differentiators, risk areas, and IP-readiness recommendations. The disclosed architecture improves repeatability, traceability, and technical rigor in early-stage invention development and can be implemented as a server-executed workflow with real-time event streaming to a client interface.
+
+## Technical Field
+
+The disclosed subject matter generally relates to:
+
+- artificial intelligence systems
+- multi-agent software orchestration
+- knowledge-graph-assisted reasoning
+- innovation management and invention support systems
+- prior-art-informed concept generation
+- computer-implemented patent-support workflows
+
+More particularly, the disclosure concerns computer-implemented systems and methods for converting unstructured innovation intent into structured, technically differentiated, novelty-aware invention outputs.
+
+## Background and Technical Problem
+
+Conventional ideation workflows suffer from a recurring set of deficiencies that reduce patent quality and make invention capture inconsistent:
+
+- valuable invention ideas originate in unstructured notes, chats, or meetings and are not normalized into reusable technical records
+- brainstorming systems often generate generic ideas that are weakly differentiated and poorly grounded in real technical constraints
+- prior-art diligence is often delayed, shallow, or disconnected from the concept-generation stage
+- innovation outputs rarely map cleanly into written-description, enablement, embodiment, and claim-development workflows
+- inventors and counsel frequently lose time reconstructing architecture, alternatives, and inventive step after the engineering work is already underway
+
+Accordingly, there is a need for a computer-implemented system that can systematically ingest innovation intent, reason across structured technical knowledge, generate differentiated embodiments, compare them against relevant prior art, and synthesize outputs into a format suitable for invention disclosure and patent-preparation workflows.
+
+## Problem-Solution Statement
+
+The present solution addresses the foregoing problems by introducing an orchestrated multi-agent pipeline in which:
+
+1. a first agent structures the innovation problem and determines downstream exploration strategy,
+2. a second agent generates concept candidates using both model reasoning and a knowledge graph,
+3. a third agent performs relevance-oriented prior-art screening against generated concepts, and
+4. a fourth agent synthesizes the results into a novelty-aware invention support report.
+
+This coordinated architecture produces a more defensible and more reproducible invention-development workflow than conventional brainstorming or isolated retrieval systems.
+
+## Written-Description-Oriented Summary of the Invention
+
+In one aspect, the invention provides a **computer-implemented system** comprising:
+
+- a server system executing a workflow engine
+- a shared state object storing innovation inputs and intermediate outputs
+- a supervisor agent configured to generate structured planning data from an innovation brief
+- an ideation agent configured to generate one or more candidate technical concepts using the planning data and graph-derived context
+- a prior-art agent configured to retrieve and score external literature evidence responsive to the candidate concepts
+- a synthesis agent configured to produce a structured novelty and IP-readiness output
+- an event-streaming subsystem configured to transmit intermediate workflow events to a client device
+
+In another aspect, the invention provides a **computer-implemented method** comprising:
+
+- receiving an innovation brief from a client system
+- generating structured planning output from the innovation brief
+- extracting graph-relevant context from a domain knowledge representation
+- generating candidate invention concepts based on the planning output and graph context
+- retrieving prior-art references responsive to the candidate invention concepts
+- scoring relevance of the prior-art references to the candidate invention concepts
+- synthesizing a final invention-support report comprising novelty indicators and recommended next actions
+
+In another aspect, the invention provides a **non-transitory computer-readable medium** storing instructions that cause one or more processors to perform the foregoing method.
+
+## Inventive Concepts and Novelty Themes
+
+The presently disclosed implementation supports at least the following inventive themes, alone or in combination:
+
+- use of a multi-agent sequence to convert unstructured invention intent into a structured IP-support output
+- use of a knowledge graph as an ideation-grounding layer rather than merely as a passive metadata store
+- use of prior-art retrieval and LLM-based relevance scoring as part of the invention-generation loop
+- use of a synthesis layer that outputs novelty, risk, and next-step data in a format optimized for patent preparation
+- use of live event streaming to preserve transparency and traceability across the innovation workflow
+
+## Best-Mode / Preferred Embodiment Overview
+
+The presently contemplated preferred embodiment is the implementation contained in this repository:
+
+- **FastAPI** backend for API and WebSocket transport
+- **LangGraph** for agent orchestration
+- **OpenAI-compatible chat models** for structured planning, ideation, scoring, and synthesis
+- **NetworkX** knowledge graph for domain, problem, pattern, and technology reasoning
+- **arXiv** and **Semantic Scholar** connectors for literature retrieval
+- browser-based interface for human review and event visibility
+
+This embodiment is preferred because it is modular, inspectable, operationally lightweight, and already reduced to a working prototype that demonstrates practical implementation of the disclosed architecture.
+
 ## Executive Summary
 
 IdeaForge AI is an end-to-end agentic system that transforms an unstructured innovation brief into a structured, reviewable, and IP-oriented output package. The platform orchestrates four cooperating agents:
@@ -50,7 +168,7 @@ This repository is intentionally documented at a level that supports:
 - reduction-to-practice planning
 - internal diligence for patent prosecution preparation
 
-This does **not** mean the repository itself grants legal protection. Patent rights arise from filed and prosecuted applications under applicable law, not from README language alone. This documentation is therefore best understood as a **supporting technical record and ownership notice**, not a substitute for patent counsel, patentability opinions, or freedom-to-operate analysis.
+This does **not** mean the repository itself grants legal protection. Patent rights arise from filed and prosecuted applications under applicable law, not from README language alone. This documentation is therefore best understood as a **supporting technical record and ownership notice**, and as the primary technical disclosure file for filing preparation, not a substitute for patent counsel, patentability opinions, or freedom-to-operate analysis.
 
 ## Core Technical Capabilities
 
@@ -137,6 +255,243 @@ WebSocket event stream (/ws/{session_id})
    v
 Frontend dashboard (live progress + final report)
 ```
+
+## Detailed Description of the Preferred Embodiment
+
+### A. Input Acquisition Layer
+
+In the preferred embodiment, a client interface receives an innovation brief containing at least:
+
+- a target domain
+- a problem space
+- a statement of user intent
+- an optional depth parameter
+
+The input is transmitted to a backend service through a REST endpoint and associated with a session identifier. The session identifier is used to coordinate background execution and event-stream delivery.
+
+### B. Workflow Orchestration Layer
+
+The backend initializes a graph-based workflow that maintains a shared state structure. The shared state carries input variables, intermediate agent outputs, and final synthesis results across the lifecycle of a single innovation session.
+
+The workflow executes a plurality of nodes in sequence, including at least:
+
+- a supervisor node
+- an ideation node
+- a prior-art node
+- a synthesis node
+
+In variants, the workflow may be linear, branching, iterative, conditional, human-gated, or confidence-threshold-based.
+
+### C. Supervisor Agent
+
+The supervisor agent receives the innovation brief and transforms it into structured planning data. In the current embodiment, the planning data includes:
+
+- focus areas
+- innovation angles
+- validation priorities
+- search queries
+- strategic framing
+
+This transformation improves downstream consistency by constraining later stages to a shared analytical frame.
+
+### D. Knowledge Graph Layer
+
+The knowledge graph stores a structured taxonomy of:
+
+- technology nodes
+- domain nodes
+- problem nodes
+- innovation-pattern nodes
+- typed edges connecting the foregoing
+
+The graph is queried using normalized domain and problem keywords extracted from the user brief. Inferred domain matches may also be derived from matched problem nodes. The graph returns context relevant to potential technologies, applicable patterns, and adjacent areas for cross-domain transfer.
+
+### E. Ideation Agent
+
+The ideation agent consumes:
+
+- user-provided domain and problem information
+- supervisor planning data
+- knowledge-graph context
+
+The ideation agent generates a set of candidate technical concepts, each preferably comprising:
+
+- title
+- description
+- technical approach
+- use cases
+- implementation pathway
+- strategic positioning
+- novelty indicators
+
+In this manner, the ideation stage is not purely generative. Rather, it is conditioned on a structured planning layer and a graph-based grounding layer.
+
+### F. Prior-Art Agent
+
+The prior-art agent generates concept-linked search activity and retrieves literature results from one or more external data sources. In the presently implemented embodiment, those sources include arXiv and Semantic Scholar.
+
+The prior-art agent may:
+
+- construct or select a concept-level query
+- retrieve candidate references
+- normalize metadata
+- score concept-to-reference relevance
+- describe key differences between the concept and the retrieved reference
+
+In other embodiments, the same architectural role may be extended to patent databases, enterprise literature stores, or private corpora.
+
+### G. Synthesis Agent
+
+The synthesis agent aggregates upstream outputs and produces a final invention-support package. In the preferred embodiment, that package includes:
+
+- innovation concepts
+- prior-art result groupings
+- novelty assessment
+- executive summary
+- IP-readiness score
+- recommended next actions
+
+The synthesis output is structured so it can be used for invention review, claim brainstorming, diligence discussions, and patent-counsel handoff.
+
+### H. Event Streaming and User Interface
+
+The system further includes a WebSocket event-streaming layer configured to publish intermediate workflow events to a client device. This enables:
+
+- run-time transparency
+- stage-by-stage review
+- auditability of workflow progression
+- rapid human intervention or interpretation
+
+The interface may display agent state, logs, concepts, prior-art evidence, novelty output, and filing-oriented next steps.
+
+## Method Disclosure
+
+An example method supported by the present disclosure comprises:
+
+1. receiving, at a server, an innovation brief from a client device;
+2. generating, by a supervisor agent, structured plan data from the innovation brief;
+3. identifying, from a knowledge graph, domain, problem, technology, and/or innovation-pattern context associated with the innovation brief;
+4. generating, by an ideation agent, one or more candidate technical concepts using the structured plan data and the knowledge-graph context;
+5. retrieving, by a prior-art agent, one or more references associated with the one or more candidate technical concepts;
+6. scoring relevance between the one or more candidate technical concepts and the one or more references;
+7. generating, by a synthesis agent, a structured novelty and IP-readiness output; and
+8. transmitting intermediate and/or final workflow outputs to a client device.
+
+Additional method variations may include:
+
+- iterative refinement loops
+- human review checkpoints
+- confidence-threshold branching
+- claim-generation subroutines
+- patent-database retrieval
+- persistence into invention-management systems
+
+## Alternative Embodiments and Variations
+
+Without limitation, the disclosed system may be varied in any of the following ways while remaining within the inventive concept:
+
+- replacing the LLM provider while preserving the multi-agent workflow architecture
+- replacing the graph implementation with another graph database or semantic layer
+- adding iterative loops between prior-art retrieval and ideation
+- integrating patent databases, legal datasets, or enterprise knowledge bases
+- generating one concept or more than three concepts
+- producing claim charts, embodiments, figures, or inventor questionnaires as additional outputs
+- executing the agents on one machine, multiple services, or cloud-native distributed infrastructure
+- replacing the browser client with an API-only integration, IDE plugin, or enterprise portal
+
+## Industrial Applicability
+
+The disclosed system is industrially applicable to at least:
+
+- innovation management
+- corporate R&D
+- university technology transfer
+- startup invention capture
+- internal prior-art screening
+- patent-counsel intake workflows
+- regulated-industry invention evaluation
+
+## Advantages Over Conventional Approaches
+
+Compared with ordinary brainstorming tools or simple retrieval systems, the present disclosure provides:
+
+- better structure and repeatability
+- tighter linkage between ideation and novelty review
+- graph-grounded technical context
+- clearer embodiment capture
+- improved traceability for invention-development history
+- outputs that are substantially closer to patent-preparation format
+
+## Figure Package Guidance
+
+For filing support, the following figures are recommended as a companion drawing set derived from this README:
+
+- **FIG. 1**: High-level system architecture showing client, API layer, workflow engine, knowledge graph, external search sources, and output interface
+- **FIG. 2**: Workflow diagram showing supervisor, ideation, prior-art, and synthesis stages
+- **FIG. 3**: Data-flow diagram showing movement of the shared state through the workflow
+- **FIG. 4**: Knowledge-graph schema showing technology, domain, problem, and innovation-pattern nodes and typed edges
+- **FIG. 5**: Example method flow for generating invention-support outputs from an innovation brief
+- **FIG. 6**: Example user interface showing live stage execution and final novelty-oriented output
+- **FIG. 7**: Example concept-to-prior-art scoring pipeline
+- **FIG. 8**: Example synthesis report structure
+
+## Claim-Drafting Support
+
+The present disclosure supports drafting at least the following claim families:
+
+- **System claims** directed to a multi-agent innovation analysis system
+- **Method claims** directed to transforming an innovation brief into a novelty-aware output through a plurality of coordinated agents
+- **Computer-readable medium claims** directed to instructions that implement the workflow
+- **Subcombination claims** directed to the knowledge-graph-augmented ideation layer, the prior-art scoring layer, or the synthesis layer individually
+
+Potential independent-claim themes include:
+
+- a server-implemented multi-agent workflow with shared state propagation
+- graph-conditioned concept generation responsive to structured planning data
+- prior-art-informed concept scoring and differentiation
+- event-streamed invention-support output generation
+
+Potential dependent-claim themes include:
+
+- use of domain, problem, pattern, and technology nodes
+- typed graph edges for domain inference
+- dynamic query construction for literature retrieval
+- concept-level relevance scoring using language models
+- generation of novelty indicators, risk areas, and filing recommendations
+- real-time event streaming to a remote user interface
+- configurable run depth or human-in-the-loop review stages
+
+## Patent Filing Handoff Checklist
+
+When using this README as the core patent-support file, the following items should be prepared or verified before filing:
+
+- inventor list and inventorship review
+- assignee / ownership chain review
+- application type decision: provisional, nonprovisional, continuation, or CIP
+- formal figure set based on the figure guidance above
+- independent and dependent claims prepared by counsel or drafting team
+- abstract finalized to filing format
+- title harmonized with filing strategy
+- consistency check against any already-filed application to avoid unintended divergence
+- review for confidential matter and third-party content
+- evidence package retained for reduction to practice, if available
+
+## USPTO Alignment Notes
+
+This README is structured to help align with patent drafting needs reflected in official USPTO guidance, including:
+
+- written description / enablement / best-mode-oriented disclosure under 35 U.S.C. 112(a)
+- the fact that a provisional application does not require claims, but still benefits from a complete technical disclosure
+- the need for drawings when necessary for understanding the invention
+
+Official references:
+
+- USPTO MPEP on provisional applications: <https://www.uspto.gov/web/offices/pac/mpep/documents/0200_201_11.htm>
+- USPTO provisional application overview: <https://www.uspto.gov/patents-getting-started/patent-basics/types-patent-applications/provisional-application-patent>
+- USPTO MPEP discussion of best mode and enablement: <https://www.uspto.gov/web/offices/pac/mpep/documents/2100_2165_04.htm>
+- USPTO guidance on written description support and prohibition on adding new matter: <https://www.uspto.gov/web/offices/pac/mpep/documents/2100_2163.htm> and <https://www.uspto.gov/web/offices/pac/mpep/documents/2100_2163_06.htm>
+
+These references support using this README as a **core technical disclosure document**, but not as a substitute for the complete formal filing package itself. If this README is used to support a filing strategy tied to an already-filed application, later README expansions should be reviewed carefully so they are not mistaken for subject matter that was part of the original filed disclosure.
 
 ## Component-Level Design
 
