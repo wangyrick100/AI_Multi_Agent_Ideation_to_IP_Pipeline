@@ -5,6 +5,7 @@ Analyses the user's innovation brief and produces a structured plan that
 guides the Ideation and Prior Art agents in the downstream pipeline.
 """
 from __future__ import annotations
+import copy
 import json
 import logging
 from typing import Any, Dict
@@ -110,7 +111,7 @@ async def run_supervisor(state: Dict[str, Any]) -> Dict[str, Any]:
 async def _generate_plan(domain: str, problem_space: str, user_intent: str) -> Dict[str, Any]:
     if USE_MOCK:
         logger.info("Supervisor: using mock plan (no API key)")
-        plan = dict(_MOCK_PLAN)
+        plan = copy.deepcopy(_MOCK_PLAN)
         # Inject user's actual domain into the mock for relevance
         plan["focus_areas"][0] = f"Structured innovation intelligence for {domain}"
         return plan
@@ -136,4 +137,4 @@ async def _generate_plan(domain: str, problem_space: str, user_intent: str) -> D
         return json.loads(response.content)
     except Exception as exc:
         logger.warning("Supervisor LLM error — falling back to mock: %s", exc)
-        return dict(_MOCK_PLAN)
+        return copy.deepcopy(_MOCK_PLAN)

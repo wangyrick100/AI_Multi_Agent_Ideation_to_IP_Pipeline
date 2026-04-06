@@ -1,13 +1,26 @@
-from pydantic import BaseModel, Field
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
+
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class InnovationRequest(BaseModel):
-    session_id: str
+    model_config = ConfigDict(str_strip_whitespace=True)
+
+    session_id: str = Field(..., min_length=1)
     domain: str = Field(..., description="Technology domain e.g. 'Healthcare AI'")
     problem_space: str = Field(..., description="Specific problem or opportunity area")
     user_intent: str = Field(..., description="What you want to achieve or explore")
-    depth: str = Field(default="standard", description="'quick' | 'standard' | 'deep'")
+    depth: Literal["quick", "standard", "deep"] = Field(
+        default="standard",
+        description="'quick' | 'standard' | 'deep'",
+    )
+
+    @field_validator("session_id", "domain", "problem_space", "user_intent")
+    @classmethod
+    def validate_not_empty(cls, value: str) -> str:
+        if not value:
+            raise ValueError("must not be empty")
+        return value
 
 
 class InnovationConcept(BaseModel):

@@ -8,6 +8,7 @@ For each innovation concept it:
 """
 from __future__ import annotations
 import asyncio
+import copy
 import json
 import logging
 from typing import Any, Dict, List
@@ -124,20 +125,22 @@ async def run_prior_art(state: Dict[str, Any]) -> Dict[str, Any]:
     await emit(session_id, {
         "type":    "agent_start",
         "agent":   "prior_art",
-        "message": f"Searching academic literature and patents for {len(concepts)} concepts…",
+        "message": f"Searching academic prior art for {len(concepts)} concepts…",
     })
 
     if USE_MOCK:
-        # In demo mode return mocks mapped to the first 2 concepts
+        # In demo mode rotate through the mock papers so each concept gets a
+        # stable, concept-specific sample without mutating shared state.
         results = []
         for i, concept in enumerate(concepts[:3]):
-            slice_start = i * 1
-            slice_end   = slice_start + 2
-            mocks = _MOCK_PRIOR_ART[slice_start:slice_end] or _MOCK_PRIOR_ART[:2]
+            slice_start = (i * 2) % len(_MOCK_PRIOR_ART)
+            mocks = _MOCK_PRIOR_ART[slice_start:slice_start + 2]
+            if len(mocks) < 2:
+                mocks += _MOCK_PRIOR_ART[: 2 - len(mocks)]
             results.append({
                 "concept_index": i,
                 "concept_title": concept.get("title", f"Concept {i+1}"),
-                "results": mocks,
+                "results": copy.deepcopy(mocks),
             })
         await emit(session_id, {
             "type":    "agent_complete",
@@ -203,11 +206,13 @@ async def _score_papers(
     papers: List[Dict[str, Any]],
 ) -> List[Dict[str, Any]]:
     """Score each paper's relevance to the concept using LLM (with fallback)."""
-    scored: List[Dict[str, Any]] = []
-    for paper in papers:
-        score_data = await _score_single_paper(concept, paper)
-        scored.append({**paper, **score_data})
-    return scored
+    if not papers:
+        return []
+
+    score_payloads = await asyncio.gather(
+        *(_score_single_paper(concept, paper) for paper in papers)
+    )
+    return [{**paper, **score_data} for paper, score_data in zip(papers, score_payloads)]
 
 
 async def _score_single_paper(

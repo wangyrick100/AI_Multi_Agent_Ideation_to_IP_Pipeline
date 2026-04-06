@@ -43,5 +43,5 @@ def _sync_search(query: str, max_results: int) -> List[Dict[str, Any]]:
 
 async def search_arxiv(query: str, max_results: int = 5) -> List[Dict[str, Any]]:
     """Async wrapper around the blocking arXiv search."""
-    loop = asyncio.get_event_loop()
+    loop = asyncio.get_running_loop()
     return await loop.run_in_executor(_executor, _sync_search, query, max_results)

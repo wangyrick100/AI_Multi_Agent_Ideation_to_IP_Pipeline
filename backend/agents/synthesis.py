@@ -8,6 +8,7 @@ Takes ideation concepts + prior art analysis and produces:
   - Actionable next steps for filing
 """
 from __future__ import annotations
+import copy
 import json
 import logging
 import time
@@ -179,7 +180,7 @@ async def _generate_synthesis(
 ) -> Dict[str, Any]:
     if USE_MOCK:
         logger.info("Synthesis: using mock report (no API key)")
-        return _MOCK_SYNTHESIS
+        return copy.deepcopy(_MOCK_SYNTHESIS)
 
     user_msg = (
         f"Innovation concepts:\n{json.dumps(concepts, indent=2)}\n\n"
@@ -201,4 +202,4 @@ async def _generate_synthesis(
         return json.loads(response.content)
     except Exception as exc:
         logger.warning("Synthesis LLM error — falling back to mock: %s", exc)
-        return _MOCK_SYNTHESIS
+        return copy.deepcopy(_MOCK_SYNTHESIS)

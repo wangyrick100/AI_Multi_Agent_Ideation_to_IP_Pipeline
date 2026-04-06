@@ -9,8 +9,6 @@ Static files:     /                          — frontend (../frontend/)
 from __future__ import annotations
 import asyncio
 import logging
-import os
-import sys
 import time
 import uuid
 from contextlib import asynccontextmanager
@@ -18,7 +16,6 @@ from pathlib import Path
 
 from fastapi import BackgroundTasks, FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 import events as ev
@@ -98,6 +95,9 @@ async def websocket_endpoint(websocket: WebSocket, session_id: str):
 # ──────────────────────────────────────────────────────────────────────────────
 @app.post("/api/innovate")
 async def start_pipeline(request: InnovationRequest, background_tasks: BackgroundTasks):
+    # Create the event channel up front so early agent events are not lost if the
+    # WebSocket connection finishes opening slightly after the POST request.
+    ev.create_channel(request.session_id)
     background_tasks.add_task(_run_pipeline, request)
     return {"status": "started", "session_id": request.session_id, "demo_mode": USE_MOCK}
 

@@ -5,6 +5,7 @@ Uses knowledge-graph context + LLM reasoning to produce 3 rich,
 IP-ready innovation concepts grounded in the supervisor's plan.
 """
 from __future__ import annotations
+import copy
 import json
 import logging
 from typing import Any, Dict, List
@@ -217,7 +218,7 @@ async def _generate_concepts(
     if USE_MOCK:
         logger.info("Ideation: using mock concepts (no API key)")
         # Personalise titles to user's domain
-        mocks = [dict(c) for c in _MOCK_CONCEPTS]
+        mocks = copy.deepcopy(_MOCK_CONCEPTS)
         mocks[0]["title"] = f"Knowledge-Graph Augmented Reasoning for {domain}"
         return mocks
 
@@ -246,4 +247,4 @@ async def _generate_concepts(
         return parsed.get("concepts", parsed) if isinstance(parsed, dict) else parsed
     except Exception as exc:
         logger.warning("Ideation LLM error — falling back to mock: %s", exc)
-        return [dict(c) for c in _MOCK_CONCEPTS]
+        return copy.deepcopy(_MOCK_CONCEPTS)

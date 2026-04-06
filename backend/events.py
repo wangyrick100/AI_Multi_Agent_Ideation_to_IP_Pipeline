@@ -14,8 +14,11 @@ _channels: Dict[str, asyncio.Queue] = {}
 
 
 def create_channel(session_id: str) -> asyncio.Queue:
-    queue: asyncio.Queue = asyncio.Queue()
-    _channels[session_id] = queue
+    """Return the existing session queue or create it on first use."""
+    queue = _channels.get(session_id)
+    if queue is None:
+        queue = asyncio.Queue()
+        _channels[session_id] = queue
     return queue
 
 
