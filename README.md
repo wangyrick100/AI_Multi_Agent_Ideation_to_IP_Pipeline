@@ -422,9 +422,136 @@ Compared with ordinary brainstorming tools or simple retrieval systems, the pres
 - improved traceability for invention-development history
 - outputs that are substantially closer to patent-preparation format
 
+## Embedded Figures
+
+### FIG. 1. High-Level System Architecture
+
+```mermaid
+flowchart TD
+    A[Client Device / Browser UI]
+    B[FastAPI API Layer]
+    C[LangGraph Workflow Engine]
+    D[Knowledge Graph Layer]
+    E[External Literature Sources]
+    F[Session Event Stream]
+    G[Invention-Support Output Package]
+
+    A -->|REST request| B
+    B --> C
+    C --> D
+    C --> E
+    C --> F
+    F --> A
+    C --> G
+    G --> A
+```
+
+### FIG. 2. Agent Workflow Pipeline
+
+```mermaid
+flowchart LR
+    S[Innovation Brief]
+    A[Supervisor Agent]
+    B[Ideation Agent]
+    C[Prior-Art Agent]
+    D[Synthesis Agent]
+    E[Final IP / Novelty Report]
+
+    S --> A --> B --> C --> D --> E
+```
+
+### FIG. 3. Shared-State Data Flow
+
+```mermaid
+flowchart TD
+    I[Initial State<br/>domain / problem_space / user_intent / depth]
+    P[Supervisor Output<br/>focus_areas / innovation_angles / search_queries]
+    C[Ideation Output<br/>innovation_concepts]
+    R[Prior-Art Output<br/>prior_art_results]
+    O[Synthesis Output<br/>novelty_assessment / executive_summary / next_steps]
+
+    I --> P --> C --> R --> O
+```
+
+### FIG. 4. Knowledge Graph Schema
+
+```mermaid
+flowchart TD
+    D1[Domain Nodes]
+    T1[Technology Nodes]
+    P1[Problem Nodes]
+    N1[Innovation Pattern Nodes]
+
+    T1 -->|applied_in| D1
+    P1 -->|challenges| D1
+    N1 -->|leverages| T1
+```
+
+### FIG. 5. Example Computer-Implemented Method
+
+```mermaid
+flowchart TD
+    M1[Receive Innovation Brief]
+    M2[Generate Structured Plan]
+    M3[Query Knowledge Graph]
+    M4[Generate Candidate Concepts]
+    M5[Retrieve Prior-Art References]
+    M6[Score Relevance and Differences]
+    M7[Generate Novelty / IP-Readiness Output]
+    M8[Stream Intermediate and Final Results]
+
+    M1 --> M2 --> M3 --> M4 --> M5 --> M6 --> M7 --> M8
+```
+
+### FIG. 6. Example User Interface Layout
+
+```mermaid
+flowchart LR
+    A1[Input Panel<br/>domain / problem / intent / depth]
+    A2[Pipeline Status View<br/>supervisor / ideation / prior art / synthesis]
+    A3[Results Tabs<br/>overview / concepts / prior art / IP report]
+
+    A1 --> A2 --> A3
+```
+
+### FIG. 7. Concept-to-Prior-Art Scoring Pipeline
+
+```mermaid
+flowchart TD
+    Q1[Generated Concept]
+    Q2[Construct Search Query]
+    Q3[Retrieve Papers<br/>arXiv / Semantic Scholar]
+    Q4[Normalize Metadata]
+    Q5[LLM Relevance Scoring]
+    Q6[Key-Difference Extraction]
+    Q7[Ranked Prior-Art Result Set]
+
+    Q1 --> Q2 --> Q3 --> Q4 --> Q5 --> Q6 --> Q7
+```
+
+### FIG. 8. Final Synthesis Report Structure
+
+```mermaid
+flowchart TD
+    Z1[Final Output Package]
+    Z2[Innovation Concepts]
+    Z3[Prior-Art Results]
+    Z4[Novelty Assessment]
+    Z5[Executive Summary]
+    Z6[IP-Readiness Score]
+    Z7[Recommended Next Steps]
+
+    Z1 --> Z2
+    Z1 --> Z3
+    Z1 --> Z4
+    Z1 --> Z5
+    Z1 --> Z6
+    Z1 --> Z7
+```
+
 ## Figure Package Guidance
 
-For filing support, the following figures are recommended as a companion drawing set derived from this README:
+The following figures are now embedded in this README as working disclosure figures and can also serve as the basis for a formal companion drawing set:
 
 - **FIG. 1**: High-level system architecture showing client, API layer, workflow engine, knowledge graph, external search sources, and output interface
 - **FIG. 2**: Workflow diagram showing supervisor, ideation, prior-art, and synthesis stages
